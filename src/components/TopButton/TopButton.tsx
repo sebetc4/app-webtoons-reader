@@ -13,7 +13,9 @@ export const TopButton = () => {
             className={styles.button}
             onClick={handleClick}
         >
-            <ArrowUp />
+            <span>
+                <ArrowUp />
+            </span>
         </button>
     )
 }

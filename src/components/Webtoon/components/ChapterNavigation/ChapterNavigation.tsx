@@ -4,6 +4,7 @@ import { useWebtoonStore } from '@/store'
 
 export const ChapterNavigation = () => {
     const currentChapter = useWebtoonStore((state) => state.currentChapter)
+    const totalChapters = useWebtoonStore((state) => state.totalChapters)
     const setCurrentChapter = useWebtoonStore((state) => state.setCurrentChapter)
     return (
         <div className={styles.container}>
@@ -15,7 +16,7 @@ export const ChapterNavigation = () => {
                 <ChevronLeft />
                 Previous
             </button>
-            <span>Chapitre {currentChapter}</span>
+            <span>Chapitre {currentChapter}/{totalChapters}</span>
             <button
                 className={styles.button}
                 onClick={() => {
