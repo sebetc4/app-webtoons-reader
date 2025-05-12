@@ -7,7 +7,9 @@ export class APIService {
         webtoonName: string,
     ): Promise<{ firstChapter: number; totalChapters: number }> {
         try {
-            const chapter0Exists = await this.#checkExistingUrlByImageLoading(this.getImageUrl(webtoonName, 0, 1))
+            const chapter0Exists = await this.#checkExistingUrlByImageLoading(
+                this.getImageUrl(webtoonName, 0, 1),
+            )
             const firstChapter = chapter0Exists ? 0 : 1
 
             let currentChapter = firstChapter
@@ -70,6 +72,9 @@ export class APIService {
             )
         }
     }
+
+    isValidWebtoonName = async (webtoonName: string): Promise<boolean> =>
+        await this.#checkExistingUrlByImageLoading(this.getImageUrl(webtoonName, 1, 1))
 
     getImageUrl = (webtoonName: string, chapterNumber: number, imageNumber: number): string =>
         `${this.#BASE_URL}/${webtoonName}/chapter-${chapterNumber}/${this.#formatImageNumber(

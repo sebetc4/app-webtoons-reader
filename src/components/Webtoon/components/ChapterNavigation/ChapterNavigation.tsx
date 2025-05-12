@@ -16,12 +16,12 @@ export const ChapterNavigation = () => {
                 <ChevronLeft />
                 Previous
             </button>
-            <span>Chapitre {currentChapter}/{totalChapters}</span>
+            <span>
+                Chapitre {currentChapter}/{totalChapters}
+            </span>
             <button
                 className={styles.button}
-                onClick={() => {
-                    setCurrentChapter(currentChapter + 1)
-                }}
+                onClick={() => setCurrentChapter(currentChapter + 1)}
             >
                 Next
                 <ChevronRight />
