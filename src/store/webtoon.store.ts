@@ -6,7 +6,7 @@ interface WebtoonState {
     firstChapter: number
     totalChapters: number
     currentChapter: number
-    totalImages: number
+    chapterImages: string[]
     isLoading: boolean
     error: string | null
 }
@@ -24,7 +24,7 @@ const initialState: WebtoonState = {
     firstChapter: 0,
     totalChapters: 1,
     currentChapter: 1,
-    totalImages: 0,
+    chapterImages: [],
     isLoading: false,
     error: null,
 }
@@ -39,9 +39,10 @@ export const useWebtoonStore = create<WebtoonStore>()((set, get) => ({
             return
         }
         const { firstChapter, totalChapters } = await apiService.getChapterInfo(name)
-        const totalImages = await apiService.getImageCount(name, currentChapter)
+        console.log('firstChapter', firstChapter)
+        const chapterImages = await apiService.getChapterImages(name, currentChapter)
 
-        set(() => ({ firstChapter, totalChapters, totalImages, isLoading: false }))
+        set(() => ({ firstChapter, totalChapters, chapterImages, isLoading: false }))
     },
 
     setName: async (name: string) => {
@@ -52,7 +53,7 @@ export const useWebtoonStore = create<WebtoonStore>()((set, get) => ({
     setCurrentChapter: async (currentChapter: number) => {
         const { name } = get()
         set(() => ({ currentChapter }))
-        const totalImages = await apiService.getImageCount(name, currentChapter)
-        set(() => ({ totalImages }))
-    }
+        const chapterImages = await apiService.getChapterImages(name, currentChapter)
+        set(() => ({ chapterImages }))
+    },
 }))

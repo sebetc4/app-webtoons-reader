@@ -6,6 +6,7 @@ export const ChapterNavigation = () => {
     const currentChapter = useWebtoonStore((state) => state.currentChapter)
     const totalChapters = useWebtoonStore((state) => state.totalChapters)
     const setCurrentChapter = useWebtoonStore((state) => state.setCurrentChapter)
+
     return (
         <div className={styles.container}>
             <button

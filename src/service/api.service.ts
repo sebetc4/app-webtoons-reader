@@ -10,6 +10,7 @@ export class APIService {
             const chapter0Exists = await this.#checkExistingUrlByImageLoading(
                 this.getImageUrl(webtoonName, 0, 1),
             )
+
             const firstChapter = chapter0Exists ? 0 : 1
 
             let currentChapter = firstChapter
@@ -42,18 +43,21 @@ export class APIService {
         }
     }
 
-    getImageCount = async (webtoonName: string, chapterNumber: number): Promise<number> => {
+    getChapterImages = async (webtoonName: string, chapterNumber: number): Promise<string[]> => {
         try {
+            const images: string[] = []
             let imageNumber = 1
 
             while (imageNumber < this.#MAX_IMAGES) {
                 try {
-                    const exists = await this.#checkExistingUrlByImageLoading(
-                        this.getImageUrl(webtoonName, chapterNumber, imageNumber),
-                    )
+                    const imageUrl = this.getImageUrl(webtoonName, chapterNumber, imageNumber)
+                    const exists = await this.#checkExistingUrlByImageLoading(imageUrl)
+
                     if (!exists) {
                         break
                     }
+
+                    images.push(imageUrl)
                     imageNumber++
                 } catch (error) {
                     console.error(
@@ -64,12 +68,10 @@ export class APIService {
                 }
             }
 
-            return Math.max(0, imageNumber - 1)
+            return images
         } catch (error) {
-            console.error(`Error in getImageCount for chapter ${chapterNumber}:`, error)
-            throw new Error(
-                `Unable to determine image count for ${webtoonName} chapter ${chapterNumber}`,
-            )
+            console.error(`Error in getImages for chapter ${chapterNumber}:`, error)
+            throw new Error(`Unable to get images for ${webtoonName} chapter ${chapterNumber}`)
         }
     }
 

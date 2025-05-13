@@ -1,7 +1,7 @@
 .container {
     display: flex;
     align-items: center;
-    gap: 1rem
+    gap: 1rem;
 }
 
 .button {
@@ -10,10 +10,10 @@
     justify-content: center;
     padding: 0.5rem 0.5rem;
 
-    &:first-child{
+    &:first-child {
         padding-right: 1rem;
     }
-    &:last-child{
+    &:last-child {
         padding-left: 1rem;
     }
 }
